@@ -2,6 +2,10 @@ import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Test1 {
 
@@ -12,6 +16,7 @@ public class Test1 {
     private String trelloError;
     private String name;
     private WebElement element;
+    private String password;
 
 
     @Before
@@ -22,7 +27,8 @@ public class Test1 {
         signup = "signup";
         trelloError = "email-error";
         name = "name";
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        password = "password";
+
     }
 
     @Test
@@ -30,17 +36,18 @@ public class Test1 {
 
         driver.get(trello);
         driver.findElement(By.id(email)).clear();
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.findElement(By.id(email)).sendKeys("test@test.pl");
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.findElement(By.id(signup)).click();
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
         driver.findElement(By.id(email)).clear();
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.findElement(By.id(email)).sendKeys("test");
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.findElement(By.id(name)).click();
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
 
         try {
 
