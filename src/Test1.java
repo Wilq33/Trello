@@ -15,8 +15,8 @@ public class Test1 {
     private String signup;
     private String trelloError;
     private String name;
-    private WebElement element;
     private String password;
+    private String redError;
 
 
     @Before
@@ -28,6 +28,7 @@ public class Test1 {
         trelloError = "email-error";
         name = "name";
         password = "password";
+        redError = "p.error-message";
 
     }
 
@@ -42,12 +43,16 @@ public class Test1 {
         driver.findElement(By.id(signup)).click();
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
-        driver.findElement(By.id(email)).clear();
+        driver.findElement(By.id(name)).sendKeys("Test test");
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        driver.findElement(By.id(email)).sendKeys("test");
+        driver.findElement(By.id(password)).sendKeys("12345678");
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        driver.findElement(By.id(name)).click();
+        driver.findElement(By.id(signup)).click();
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        String expectedMessage = "E-mail jest już w użyciu przez niepotwierdzone konto. Możesz zalogować się lub odzyskać hasło, by je zresetować.";
+        String errorMessage = driver.findElement(By.cssSelector(redError)).getText();
+        System.out.println(errorMessage);
+        Assert.assertTrue("Your error message", errorMessage.contains(expectedMessage));
 
     }
 
