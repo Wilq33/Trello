@@ -3,8 +3,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import org.openqa.selenium.WebDriver;
+
 
 public class TrelloTests {
 
@@ -19,6 +18,7 @@ public class TrelloTests {
 
     @Before
     public void setUp() {
+
         Driver.driverF = new FirefoxDriver();
         trello = "https://trello.com/signup";
         email = "email";
@@ -39,15 +39,14 @@ public class TrelloTests {
         SignUpPage signUpPage = new SignUpPage(Driver.driverF);
         Assert.assertTrue(signUpPage.isInitialized());
         signUpPage.enterEmail("test@test.pl");
+
         WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
 
-        Driver.driverF.findElement(By.id(name)).sendKeys("Test test");
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(password)).sendKeys("12345678");
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(signup)).click();
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        RegistrationPage registrationPage = new RegistrationPage(Driver.driverF);
+        Assert.assertTrue(registrationPage.isInitialized());
+        registrationPage.enterData("test@test.pl", "Test Test", "12345678");
+
         String expectedMessage = "E-mail jest już w użyciu przez niepotwierdzone konto. Możesz zalogować się lub odzyskać hasło, by je zresetować.";
         String errorMessage = Driver.driverF.findElement(By.cssSelector(redError)).getText();
         System.out.println(errorMessage);
@@ -58,21 +57,20 @@ public class TrelloTests {
     @Test
     public void testForm2() {
 
-        //Test to check if you can create
+        //Test to check if you can change an email address to non-email text
 
         Driver.driverF.get(trello);
         SignUpPage signUpPage = new SignUpPage(Driver.driverF);
         Assert.assertTrue(signUpPage.isInitialized());
         signUpPage.enterEmail("test@test.pl");
+
         WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
 
-        Driver.driverF.findElement(By.id(email)).clear();
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(email)).sendKeys("test");
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(name)).click();
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        RegistrationPage registrationPage = new RegistrationPage(Driver.driverF);
+        Assert.assertTrue(registrationPage.isInitialized());
+        registrationPage.sameEmail("test");
+
         String expectedMessage = "To nie wygląda na adres e-mail...";
         String errorMessage = Driver.driverF.findElement(By.id(trelloError)).getText();
         System.out.println(errorMessage);
