@@ -36,13 +36,12 @@ public class TrelloTests {
         //Test to check if you can create another account using already registered e-mail address
 
         Driver.driverF.get(trello);
-        Driver.driverF.findElement(By.id(email)).clear();
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(email)).sendKeys("test@test.pl");
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(signup)).click();
+        SignUpPage signUpPage = new SignUpPage(Driver.driverF);
+        Assert.assertTrue(signUpPage.isInitialized());
+        signUpPage.enterEmail("test@test.pl");
         WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
+
         Driver.driverF.findElement(By.id(name)).sendKeys("Test test");
         Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
         Driver.driverF.findElement(By.id(password)).sendKeys("12345678");
@@ -62,13 +61,12 @@ public class TrelloTests {
         //Test to check if you can create
 
         Driver.driverF.get(trello);
-        Driver.driverF.findElement(By.id(email)).clear();
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(email)).sendKeys("test@test.pl");
-        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driverF.findElement(By.id(signup)).click();
+        SignUpPage signUpPage = new SignUpPage(Driver.driverF);
+        Assert.assertTrue(signUpPage.isInitialized());
+        signUpPage.enterEmail("test@test.pl");
         WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
+
         Driver.driverF.findElement(By.id(email)).clear();
         Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
         Driver.driverF.findElement(By.id(email)).sendKeys("test");

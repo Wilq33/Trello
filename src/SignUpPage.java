@@ -16,4 +16,14 @@ public class SignUpPage extends PageObject {
     public SignUpPage(WebDriver driver) {
         super(driver);
     }
+
+    public boolean isInitialized() {
+        return email.isDisplayed();
+    }
+
+    public void enterEmail(String email) {
+        this.email.clear();
+        this.email.sendKeys(email);
+        this.signup.click();
+    }
 }

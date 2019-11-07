@@ -15,7 +15,7 @@ public class RegistrationPage extends PageObject {
     private WebElement name;
 
     @FindBy(id = "password")
-    private WebElement zipCode;
+    private WebElement password;
 
     @FindBy(id = "trelloError")
     private WebElement trelloError;
@@ -25,5 +25,10 @@ public class RegistrationPage extends PageObject {
 
     public RegistrationPage(WebDriver driver) {
         super(driver);
+    }
+
+
+    public boolean isInitialized() {
+        return password.isDisplayed();
     }
 }
