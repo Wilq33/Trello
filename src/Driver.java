@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class Driver {
 
-    public static WebDriver driver;
+    //Firefox driver
+    public static WebDriver driverF;
 
 }

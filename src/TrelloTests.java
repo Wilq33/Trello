@@ -18,7 +18,7 @@ public class TrelloTests {
 
     @Before
     public void setUp() {
-        Driver.driver = new FirefoxDriver();
+        Driver.driverF = new FirefoxDriver();
         trello = "https://trello.com/signup";
         email = "email";
         signup = "signup";
@@ -32,22 +32,24 @@ public class TrelloTests {
     @Test
     public void testForm1() {
 
-        Driver.driver.get(trello);
-        Driver.driver.findElement(By.id(email)).clear();
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(email)).sendKeys("test@test.pl");
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(signup)).click();
-        WebDriverWait wait = new WebDriverWait(Driver.driver, 5);
+        //Test to check if you can create another account using already registered e-mail address
+
+        Driver.driverF.get(trello);
+        Driver.driverF.findElement(By.id(email)).clear();
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(email)).sendKeys("test@test.pl");
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(signup)).click();
+        WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
-        Driver.driver.findElement(By.id(name)).sendKeys("Test test");
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(password)).sendKeys("12345678");
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(signup)).click();
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(name)).sendKeys("Test test");
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(password)).sendKeys("12345678");
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(signup)).click();
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
         String expectedMessage = "E-mail jest już w użyciu przez niepotwierdzone konto. Możesz zalogować się lub odzyskać hasło, by je zresetować.";
-        String errorMessage = Driver.driver.findElement(By.cssSelector(redError)).getText();
+        String errorMessage = Driver.driverF.findElement(By.cssSelector(redError)).getText();
         System.out.println(errorMessage);
         Assert.assertTrue("Your error message", errorMessage.contains(expectedMessage));
 
@@ -56,22 +58,24 @@ public class TrelloTests {
     @Test
     public void testForm2() {
 
-        Driver.driver.get(trello);
-        Driver.driver.findElement(By.id(email)).clear();
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(email)).sendKeys("test@test.pl");
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(signup)).click();
-        WebDriverWait wait = new WebDriverWait(Driver.driver, 5);
+        //Test to check if you can create
+
+        Driver.driverF.get(trello);
+        Driver.driverF.findElement(By.id(email)).clear();
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(email)).sendKeys("test@test.pl");
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(signup)).click();
+        WebDriverWait wait = new WebDriverWait(Driver.driverF, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
-        Driver.driver.findElement(By.id(email)).clear();
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(email)).sendKeys("test");
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Driver.driver.findElement(By.id(name)).click();
-        Driver.driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(email)).clear();
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(email)).sendKeys("test");
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
+        Driver.driverF.findElement(By.id(name)).click();
+        Driver.driverF.manage().timeouts().implicitlyWait(5, SECONDS);
         String expectedMessage = "To nie wygląda na adres e-mail...";
-        String errorMessage = Driver.driver.findElement(By.id(trelloError)).getText();
+        String errorMessage = Driver.driverF.findElement(By.id(trelloError)).getText();
         System.out.println(errorMessage);
         Assert.assertTrue("Your error message", errorMessage.contains(expectedMessage));
 
@@ -80,7 +84,7 @@ public class TrelloTests {
     @After
     public void tearDown() {
 
-        Driver.driver.quit();
+        Driver.driverF.quit();
 
     }
 }
