@@ -15,7 +15,6 @@ public class TrelloTests {
     private String password;
     private String redError;
 
-
     @Before
     public void setUp() {
 
