@@ -32,7 +32,7 @@ public class Test1 {
     }
 
     @Test
-    public void testForm() {
+    public void testForm1() {
 
         driver.get(trello);
         driver.findElement(By.id(email)).clear();
@@ -49,24 +49,32 @@ public class Test1 {
         driver.findElement(By.id(name)).click();
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
 
-        try {
-
-            element = driver.findElement(By.id(trelloError));
-
-
-            if(element.isDisplayed()){
-
-                System.out.println("I can see the message");
-
-            }else{
-
-                System.out.println("I cannot see the message");
-            }
-
-            /*System.out.println(trelloError);*/
-            /*public static void assertEquals("That doesn't look like an email address…", trelloError);*/
-        }catch (Exception e){};
     }
+
+    @Test
+    public void testForm2() {
+
+        driver.get(trello);
+        driver.findElement(By.id(email)).clear();
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        driver.findElement(By.id(email)).sendKeys("test@test.pl");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        driver.findElement(By.id(signup)).click();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(password)));
+        driver.findElement(By.id(email)).clear();
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        driver.findElement(By.id(email)).sendKeys("test");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        driver.findElement(By.id(name)).click();
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        String expectedMessage = "To nie wygląda na adres e-mail...";
+        String errorMessage = driver.findElement(By.id(trelloError)).getText();
+        System.out.println(errorMessage);
+        Assert.assertTrue("Your error message", errorMessage.contains(expectedMessage));
+
+    }
+
 
     @After
     public void tearDown() {
