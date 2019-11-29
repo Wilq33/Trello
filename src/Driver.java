@@ -4,5 +4,4 @@ public abstract class Driver {
 
     //Firefox driver
     public static WebDriver driverF;
-
 }
