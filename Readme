@@ -1,6 +1,20 @@
 Pre-condition:
 
-Having IntelliJ IDEA installed on the machine (https://www.jetbrains.com/idea/download/#section=windows)
+1. Having IntelliJ IDEA installed on the machine (https://www.jetbrains.com/idea/download/#section=windows)
+2. Polish language is set for the geckodriver.exe
+
+Steps:
 
 1. Download Trello.jar and geckodriver.exe
-
+2. Start a new project in IntelliJ IDEA (I recommend to not use partition where windows OS is, ussually C:)
+3. Click right on project name in project section 
+4. Click module settings
+5. Choose Libraries from the list on the left side of new window
+6. Click plus sign to add a new jar file
+7. Click Java,
+8. Find downloaded Trello.jar file and click ok
+9. Select ok
+10. Select apply and ok
+11. Find the repository and put geckodriver in it
+12. Back in IntelliJ IDEA in project menu, choose External Libraries -> Trello -> Trello.jar -> TrelloTests
+13. In 15 line of code in TrelloTests class click on play button and choose Run 'TrelloTests' (Or ctrl + shift + F10)
